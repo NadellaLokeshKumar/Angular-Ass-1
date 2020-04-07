@@ -34,4 +34,11 @@ export class ServiceService {
   getUser(id) {
     return this.http.get(`${this.fireBaseUrl}/users/${id}.json`);
   }
+
+  updateUser(id, data) {
+    return this.http.put(`${this.fireBaseUrl}/users/${id}.json`, data);
+  }
+  deleteUser(id) {
+    return this.http.delete(`${this.fireBaseUrl}/users/${id}.json`);
+  }
 }

@@ -8,7 +8,6 @@ import { AllRecordsComponent } from './all-records/all-records.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { AddComponent } from './add/add.component';
-import { GetUserComponent } from './get-user/get-user.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +15,6 @@ import { GetUserComponent } from './get-user/get-user.component';
     AllRecordsComponent,
     LoginComponent,
     AddComponent,
-    GetUserComponent
   ],
   imports: [
     BrowserModule,

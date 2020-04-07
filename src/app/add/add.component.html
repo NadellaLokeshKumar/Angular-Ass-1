@@ -1,84 +1,469 @@
-<div class="col-md-4 offset-md-4 mt-5">
-    <form #form="ngForm" (ngSubmit)="submitData(form)">
-        <div class="card">
-            <div class="card-header bg-dark text-white">
-                <h5>Add</h5>
+<div [ngSwitch]="kind">
+    <div *ngSwitchCase="'add'" class="col-md-4 offset-md-4 mt-5">
+        <form #form="ngForm" (ngSubmit)="submitData(form)">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5>Add</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="firstname" id="firstname"
+                            placeholder="Enter First Name" #firstname="ngModel" ngModel required
+                            pattern="^[A-Z]+[a-zA-Z]*$">
+                    </div>
+                    <div *ngIf="firstname.touched && firstname.invalid">
+                        <p class="text-danger" *ngIf="firstname.errors.required" style="font-size: smaller">*This field
+                            is
+                            required</p>
+                        <p class="text-danger" *ngIf="firstname.errors.pattern" style="font-size: smaller">*Only
+                            characters
+                            & first letter is capital</p>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="middlename" id="middlename"
+                            placeholder="Enter Middle Name" #middlename="ngModel" ngModel pattern="^[A-Z]+[a-zA-Z]*$">
+                    </div>
+                    <div *ngIf="middlename.invalid">
+                        <p class="text-danger" *ngIf="middlename.errors.pattern" style="font-size: smaller">*Only
+                            characters
+                            & first letter is capital</p>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="lastname" id="lastname"
+                            placeholder="Enter Last Name" #lastname="ngModel" ngModel required
+                            pattern="^[A-Z]+[a-zA-Z]*$">
+                    </div>
+                    <div *ngIf="lastname.touched && lastname.invalid">
+                        <p class="text-danger" *ngIf="lastname.errors.required" style="font-size: smaller">*This field
+                            is
+                            required</p>
+                        <p class="text-danger" *ngIf="lastname.errors.pattern" style="font-size: smaller">*Only
+                            characters &
+                            first letter is capital</p>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="email" name="email" id="email" placeholder="Enter email"
+                            #email="ngModel" ngModel required email>
+                    </div>
+                    <div *ngIf="email.touched && email.invalid">
+                        <p class="text-danger" *ngIf="email.errors.required" style="font-size: smaller">*This field is
+                            required</p>
+                        <p class="text-danger" *ngIf="email.errors.email" style="font-size: smaller">*must follow email
+                            patteren</p>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="password" id="password"
+                            placeholder="Enter password" #password="ngModel" ngModel required minlength="8">
+                    </div>
+                    <div *ngIf="password.touched && password.invalid">
+                        <p class="text-danger" *ngIf="password.errors.required" style="font-size: smaller">*This field
+                            is
+                            required</p>
+                        <p class="text-danger" *ngIf="password.errors.minlength" style="font-size: smaller">*minimum 8
+                            characters</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthday">DOB :</label>
+                        <input class="form-control" type="date" id="dob" name="dob" #dob="ngModel" ngModel required>
+                    </div>
+                    <div *ngIf="dob.touched && dob.invalid">
+                        <p class="text-danger" *ngIf="number.errors.required" style="font-size: smaller">*This field is
+                            required</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender: </label>
+                        <select name="gender" id="gender" class="form-control" #gender="ngModel" ngModel required>
+                            <option *ngFor='let value of addGender' value={{value}}>{{value}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="gender.touched && gender.invalid">
+                        <p class="text-danger" *ngIf="gender.errors.required" style="font-size: smaller">*This field is
+                            required</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Country: </label>
+                        <select name="country" id="country" class="form-control" #country="ngModel" ngModel required>
+                            <option *ngFor='let value of addCountry' value={{value}}>{{value}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="country.touched && country.invalid">
+                        <p class="text-danger" *ngIf="country.errors.required" style="font-size: smaller">*This field is
+                            required</p>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="number" id="number"
+                            placeholder="Enter mobile number" #number="ngModel" ngModel required pattern="[0-9]{10}">
+                    </div>
+                    <div *ngIf="number.touched && number.invalid">
+                        <p class="text-danger" *ngIf="number.errors.required" style="font-size: smaller">*This field is
+                            required</p>
+                        <p class="text-danger" *ngIf='number.errors.pattern' style="font-size: smaller">*Only 10 digit
+                            numbers are allowed</p>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="address" id="address" placeholder="Enter Address"
+                            #address="ngModel" ngModel required pattern="^[A-Z]+[a-zA-Z]*$">
+                    </div>
+                    <div *ngIf="address.touched && address.invalid">
+                        <p class="text-danger" *ngIf="address.errors.required" style="font-size: smaller">*This field is
+                            required</p>
+                        <p class="text-danger" *ngIf="address.errors.pattern" style="font-size: smaller">*Only
+                            characters &
+                            first letter is capital</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-outline-success float-right"
+                        [disabled]="form.invalid">Save</button>
+                    <button class="btn btn-success float-left" routerLink="/allRecords">Back</button>
+                </div>
             </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <input class="form-control" type="text" name="firstname" id="firstname"
-                        placeholder="Enter First Name" #firstname="ngModel" ngModel required
-                        pattern="^[A-Z]+[a-zA-Z]*$">
+        </form>
+    </div>
+
+
+    <div *ngSwitchCase="'edit'" class="col-md-4 offset-md-4 mt-5">
+        <form #form="ngForm" (ngSubmit)="updateData(form)">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h3>{{selectedUser.firstname}} {{ selectedUser.lastname}}</h3>
                 </div>
-                <div *ngIf="firstname.touched && firstname.invalid">
-                    <p class="text-danger" *ngIf="firstname.errors.required" style="font-size: smaller">*This field is
-                        required</p>
-                    <p class="text-danger" *ngIf="firstname.errors.pattern" style="font-size: smaller">*Only characters
-                        & first letter is capital</p>
+                <div class="card-body">
+                    <input type="hidden" name="id" #id="ngModel" ngModel [ngModel]="selectedUser.id">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="firstname" id="firstname"
+                            placeholder="Enter First Name" #firstname="ngModel" [(ngModel)]='selectedUser.firstname'
+                            required pattern="^[A-Z]+[a-zA-Z]*$">
+                    </div>
+                    <div *ngIf="firstname.touched && firstname.invalid">
+                        <p class="text-danger" *ngIf="firstname.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                        <p class="text-danger" *ngIf="firstname.errors.pattern" style="font-size: smaller">
+                            *Only characters
+                            & first letter is capital</p>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="middlename" id="middlename"
+                            placeholder="Enter Middle Name" #middlename="ngModel" [(ngModel)]='selectedUser.middlename'
+                            pattern="^[A-Z]+[a-zA-Z]*$">
+                    </div>
+                    <div *ngIf="middlename.invalid">
+                        <p class="text-danger" *ngIf="middlename.errors.pattern" style="font-size: smaller">
+                            *Only characters
+                            & first letter is capital</p>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="lastname" id="lastname"
+                            placeholder="Enter Last Name" #lastname="ngModel" [(ngModel)]='selectedUser.lastname'
+                            required pattern="^[A-Z]+[a-zA-Z]*$">
+                    </div>
+                    <div *ngIf="lastname.touched && lastname.invalid">
+                        <p class="text-danger" *ngIf="lastname.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                        <p class="text-danger" *ngIf="lastname.errors.pattern" style="font-size: smaller">
+                            *Only characters &
+                            first letter is capital</p>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="email" name="email" id="email" placeholder="Enter email"
+                            #email="ngModel" [(ngModel)]='selectedUser.email' required email>
+                    </div>
+                    <div *ngIf="email.touched && email.invalid">
+                        <p class="text-danger" *ngIf="email.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                        <p class="text-danger" *ngIf="email.errors.email" style="font-size: smaller">*must
+                            follow email
+                            patteren</p>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="password" id="password"
+                            placeholder="Enter password" #password="ngModel" [(ngModel)]='selectedUser.password'
+                            required minlength="8">
+                    </div>
+                    <div *ngIf="password.touched && password.invalid">
+                        <p class="text-danger" *ngIf="password.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                        <p class="text-danger" *ngIf="password.errors.minlength" style="font-size: smaller">
+                            *minimum 8
+                            characters</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthday">DOB :</label>
+                        <input class="form-control" type="date" id="dob" name="dob" #dob="ngModel"
+                            [(ngModel)]=selectedUser.dob required>
+                    </div>
+                    <div *ngIf="dob.touched && dob.invalid">
+                        <p class="text-danger" *ngIf="number.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender: </label>
+                        <select name="gender" id="gender" class="form-control" #gender="ngModel"
+                            [(ngModel)]='selectedUser.gender' required>
+                            <option *ngFor='let value of addGender' value={{value}}>{{value}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="gender.touched && gender.invalid">
+                        <p class="text-danger" *ngIf="gender.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Country: </label>
+                        <select name="country" id="country" class="form-control" #country="ngModel"
+                            [(ngModel)]='selectedUser.country' required>
+                            <option *ngFor='let value of addCountry' value={{value}}>{{value}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="country.touched && country.invalid">
+                        <p class="text-danger" *ngIf="country.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="number" id="number"
+                            placeholder="Enter mobile number" #number="ngModel" [(ngModel)]='selectedUser.number'
+                            required pattern="[0-9]{10}">
+                    </div>
+                    <div *ngIf="number.touched && number.invalid">
+                        <p class="text-danger" *ngIf="number.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                        <p class="text-danger" *ngIf='number.errors.pattern' style="font-size: smaller">
+                            *Only 10 digit
+                            numbers are allowed</p>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="address" id="address" placeholder="Enter Address"
+                            #address="ngModel" [(ngModel)]='selectedUser.address' required pattern="^[A-Z]+[a-zA-Z]*$">
+                    </div>
+                    <div *ngIf="address.touched && address.invalid">
+                        <p class="text-danger" *ngIf="address.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                        <p class="text-danger" *ngIf="address.errors.pattern" style="font-size: smaller">
+                            *Only characters &
+                            first letter is capital</p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" name="middlename" id="middlename"
-                        placeholder="Enter Middle Name" #middlename="ngModel" ngModel pattern="^[A-Z]+[a-zA-Z]*$">
-                </div>
-                <div *ngIf="middlename.invalid">
-                    <p class="text-danger" *ngIf="middlename.errors.pattern" style="font-size: smaller">*Only characters
-                        & first letter is capital</p>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" name="lastname" id="lastname" placeholder="Enter Last Name"
-                        #lastname="ngModel" ngModel required pattern="^[A-Z]+[a-zA-Z]*$">
-                </div>
-                <div *ngIf="lastname.touched && lastname.invalid">
-                    <p class="text-danger" *ngIf="lastname.errors.required" style="font-size: smaller">*This field is
-                        required</p>
-                    <p class="text-danger" *ngIf="lastname.errors.pattern" style="font-size: smaller">*Only characters &
-                        first letter is capital</p>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="email" name="email" id="email" placeholder="Enter email"
-                        #email="ngModel" ngModel required email>
-                </div>
-                <div *ngIf="email.touched && email.invalid">
-                    <p class="text-danger" *ngIf="email.errors.required" style="font-size: smaller">*This field is
-                        required</p>
-                    <p class="text-danger" *ngIf="email.errors.email" style="font-size: smaller">*must follow email
-                        patteren</p>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="password" name="password" id="password"
-                        placeholder="Enter password" #password="ngModel" ngModel required minlength="8">
-                </div>
-                <div *ngIf="password.touched && password.invalid">
-                    <p class="text-danger" *ngIf="password.errors.required" style="font-size: smaller">*This field is
-                        required</p>
-                    <p class="text-danger" *ngIf="password.errors.minlength" style="font-size: smaller">*minimum 8
-                        characters</p>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" name="number" id="number" placeholder="Enter mobile number"
-                        #number="ngModel" ngModel required pattern="[0-9]{10}">
-                </div>
-                <div *ngIf="number.touched && number.invalid">
-                    <p class="text-danger" *ngIf="number.errors.required" style="font-size: smaller">*This field is
-                        required</p>
-                    <p class="text-danger" *ngIf='number.errors.pattern' style="font-size: smaller">*Only 10 digit
-                        numbers are allowed</p>
-                </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" name="address" id="address" placeholder="Enter Address"
-                        #address="ngModel" ngModel required pattern="^[A-Z]+[a-zA-Z]*$">
-                </div>
-                <div *ngIf="address.touched && address.invalid">
-                    <p class="text-danger" *ngIf="address.errors.required" style="font-size: smaller">*This field is
-                        required</p>
-                    <p class="text-danger" *ngIf="address.errors.pattern" style="font-size: smaller">*Only characters &
-                        first letter is capital</p>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-outline-success float-right"
+                        [disabled]="form.invalid">Save</button>
+                    <button class="btn btn-success float-left" routerLink="/allRecords">Back</button>
                 </div>
             </div>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-outline-success float-right"
-                    [disabled]="form.invalid">Save</button>
+        </form>
+    </div>
+
+
+    <div *ngSwitchCase="'view'" class="col-md-4 offset-md-4 mt-5">
+        <form #form="ngForm">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5>View</h5>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" name="id" #id="ngModel" [readonly]="isReadOnly" [ngModel]="selectedUser.id">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input class="form-control" type="text" name="firstname" id="firstname" #firstname="ngModel"
+                            [readonly]='isReadOnly' [ngModel]='selectedUser.firstname'>
+                    </div>
+                    <div class="form-group">
+                        <label>Middle Name</label>
+                        <input class="form-control" type="text" name="middlename" id="middlename" #middlename="ngModel"
+                            [ngModel]='selectedUser.middlename' [readonly]="isReadOnly">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input class="form-control" type="text" name="lastname" id="lastname" #lastname="ngModel"
+                            [ngModel]='selectedUser.lastname' [readonly]="isReadOnly">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input class="form-control" type="email" name="email" id="email" #email="ngModel"
+                            [ngModel]='selectedUser.email' [readonly]="isReadOnly">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input class="form-control" type="text" name="password" id="password" #password="ngModel"
+                            [ngModel]='selectedUser.password' [readonly]="isReadOnly">
+                    </div>
+                    <div class="form-group">
+                        <label for="birthday">DOB :</label>
+                        <input class="form-control" type="date" id="dob" name="dob" #dob="ngModel"
+                            [ngModel]='selectedUser.dob' [readonly]="isReadOnly">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender: </label>
+                        <input class="form-control" type="text" id="gender" name="gender" #gender="ngModel"
+                            [ngModel]='selectedUser.gender' [readonly]="isReadOnly">
+                    </div>
+                    <div class="form-group">
+                        <label>Country: </label>
+                        <input class="form-control" type="text" id="country" name="country" #country="ngModel"
+                            [ngModel]='selectedUser.country' [readonly]="isReadOnly">
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input class="form-control" type="text" name="number" id="number" #number="ngModel"
+                            [ngModel]='selectedUser.number' [readonly]="isReadOnly">
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input class="form-control" type="text" name="address" id="address" #address="ngModel"
+                            [ngModel]='selectedUser.address' [readonly]="isReadOnly">
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-success float-left" routerLink="/allRecords">Back</button>
+                    </div>
+                </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
+
+
+    <div *ngSwitchCase="'copy'" class="col-md-4 offset-md-4 mt-5">
+        <form #form="ngForm" (ngSubmit)="copy(form)">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5>Copy Details</h5>
+                </div>
+                <div class="card-body">
+                    <input type="hidden" name="id" #id="ngModel" ngModel [ngModel]="selectedUser.id">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input class="form-control" type="text" name="firstname" id="firstname" #firstname="ngModel"
+                            [ngModel]='' required pattern="^[A-Z]+[a-zA-Z]*$">
+                    </div>
+                    <div *ngIf="firstname.touched && firstname.invalid">
+                        <p class="text-danger" *ngIf="firstname.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                        <p class="text-danger" *ngIf="firstname.errors.pattern" style="font-size: smaller">
+                            *Only characters
+                            & first letter is capital</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Middle Name</label>
+                        <input class="form-control" type="text" name="middlename" id="middlename" #middlename="ngModel"
+                            [(ngModel)]='selectedUser.middlename' pattern="^[A-Z]+[a-zA-Z]*$">
+                    </div>
+                    <div *ngIf="middlename.invalid">
+                        <p class="text-danger" *ngIf="middlename.errors.pattern" style="font-size: smaller">
+                            *Only characters
+                            & first letter is capital</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input class="form-control" type="text" name="lastname" id="lastname" #lastname="ngModel"
+                            [ngModel]='' required pattern="^[A-Z]+[a-zA-Z]*$">
+                    </div>
+                    <div *ngIf="lastname.touched && lastname.invalid">
+                        <p class="text-danger" *ngIf="lastname.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                        <p class="text-danger" *ngIf="lastname.errors.pattern" style="font-size: smaller">
+                            *Only characters &
+                            first letter is capital</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input class="form-control" type="email" name="email" id="email" #email="ngModel" [ngModel]=''
+                            required email>
+                    </div>
+                    <div *ngIf="email.touched && email.invalid">
+                        <p class="text-danger" *ngIf="email.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                        <p class="text-danger" *ngIf="email.errors.email" style="font-size: smaller">*must
+                            follow email
+                            patteren</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input class="form-control" type="password" name="password" id="password" #password="ngModel"
+                            [ngModel]='' required minlength="8">
+                    </div>
+                    <div *ngIf="password.touched && password.invalid">
+                        <p class="text-danger" *ngIf="password.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                        <p class="text-danger" *ngIf="password.errors.minlength" style="font-size: smaller">
+                            *minimum 8
+                            characters</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthday">DOB :</label>
+                        <input class="form-control" type="date" id="dob" name="dob" #dob="ngModel" [ngModel]=''
+                            required>
+                    </div>
+                    <div *ngIf="dob.touched && dob.invalid">
+                        <p class="text-danger" *ngIf="number.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender: </label>
+                        <select name="gender" id="gender" class="form-control" #gender="ngModel"
+                            [ngModel]='selectedUser.gender' required>
+                            <option *ngFor='let value of addGender' value={{value}}>{{value}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="gender.touched && gender.invalid">
+                        <p class="text-danger" *ngIf="gender.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Country: </label>
+                        <select name="country" id="country" class="form-control" #country="ngModel"
+                            [ngModel]='selectedUser.country' required>
+                            <option *ngFor='let value of addCountry' value={{value}}>{{value}}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="country.touched && country.invalid">
+                        <p class="text-danger" *ngIf="country.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Contact Number</label>
+                        <input class="form-control" type="text" name="number" id="number" #number="ngModel" [ngModel]=''
+                            required pattern="[0-9]{10}">
+                    </div>
+                    <div *ngIf="number.touched && number.invalid">
+                        <p class="text-danger" *ngIf="number.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                        <p class="text-danger" *ngIf='number.errors.pattern' style="font-size: smaller">
+                            *Only 10 digit
+                            numbers are allowed</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input class="form-control" type="text" name="address" id="address" #address="ngModel"
+                            [ngModel]='selectedUser.address' required pattern="^[A-Z]+[a-zA-Z]*$">
+                    </div>
+                    <div *ngIf="address.touched && address.invalid">
+                        <p class="text-danger" *ngIf="address.errors.required" style="font-size: smaller">
+                            *This field is
+                            required</p>
+                        <p class="text-danger" *ngIf="address.errors.pattern" style="font-size: smaller">
+                            *Only characters &
+                            first letter is capital</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-outline-success float-right"
+                        [disabled]="form.invalid">Save</button>
+                    <button class="btn btn-success float-left" routerLink="/allRecords">Back</button>
+                </div>
+            </div>
+        </form>
+    </div>

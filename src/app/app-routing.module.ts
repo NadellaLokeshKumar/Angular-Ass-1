@@ -3,14 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 import { AllRecordsComponent } from './all-records/all-records.component';
 import { LoginComponent } from './login/login.component';
 import { AddComponent } from './add/add.component';
-import { GetUserComponent } from './get-user/get-user.component';
 
 
 const routes: Routes = [
   {path : ``, component : LoginComponent},
-  {path : `allRecords`, component : AllRecordsComponent},
-  {path : `add`, component : AddComponent},
-  {path : `users/:id`, component : GetUserComponent},
+  {path : `allRecords`, component : AllRecordsComponent, pathMatch : 'full'},
+  {path : `add`, children: [
+       {path : ``, component : AddComponent, data : {kind : 'add'}},
+       {path : `edit/:id`, component : AddComponent, data : {kind : 'edit'}},
+       {path : `copy/:id`, component : AddComponent, data : {kind : 'copy'}},
+       {path : `view/:id`, component : AddComponent, data : {kind : 'view'}}
+]
+},
 ];
 
 @NgModule({

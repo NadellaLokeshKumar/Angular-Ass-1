@@ -1,4 +1,4 @@
-<div class="col-md-8 offset-2">
+<div class="col-md-12">
     <button class="btn btn-success float-right" routerLink="/add">Add</button>
     <hr>
     <table class="table table-bordered table-striped table-dark">
@@ -11,10 +11,17 @@
                 <th>Contact Number</th>
                 <th>Address</th>
                 <th>Password</th>
+                <th>DOB</th>
+                <th>Country</th>
+                <th>Gender</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>Copy</th>
             </tr>
         </thead>
         <tbody>
-            <tr routerLink="/users/{{user.id}}" *ngFor="let user of users">
+            <tr *ngFor="let user of users">
                 <td>{{user.firstname}}</td>
                 <td>{{user.middlename}}</td>
                 <td>{{user.lastname}}</td>
@@ -22,6 +29,21 @@
                 <td>{{user.number}}</td>
                 <td>{{user.address}}</td>
                 <td>{{user.password}}</td>
+                <td>{{user.dob}}</td>
+                <td>{{user.country}}</td>
+                <td>{{user.gender}}</td>
+                <td>
+                    <button type="button" class="btn btn-outline-primary" [routerLink]="['/add/view', user.id]">View</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" [routerLink]="['/add/edit',user.id]">Edit</button>
+                </td>
+                <td>
+                    <button (click)="deleteData(user)" type="button" class="btn btn-outline-danger">Delete</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-outline-warning" [routerLink]="['/add/copy',user.id]">Copy</button>
+                </td>
             </tr>
         </tbody>
     </table>
